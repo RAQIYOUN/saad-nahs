@@ -30,9 +30,7 @@ header h1{margin:0;font-size:19px}
 .ctl button[hidden],.ioshint[hidden]{display:none}
 .ioshint{display:flex;gap:10px;align-items:center;justify-content:center;margin:12px auto 0;max-width:560px;background:#ffffff26;border:1px solid #ffffff66;border-radius:12px;padding:8px 12px;font-size:13px;line-height:1.9}
 .ioshint button{font:inherit;font-size:20px;background:none;border:0;color:#fff;cursor:pointer;line-height:1}
-footer{text-align:center;color:var(--mut);font-size:12.5px;line-height:2;padding:14px 12px calc(22px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);margin-top:8px}
-
-
+footer{text-align:center;color:var(--mut);font-size:12.5px;line-height:2;padding:14px 12px calc(22px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);margin-top:8px}main{max-width:820px;margin:0 auto;padding:16px 12px 28px}
 
 /* کارت تاریخ */
 .dates{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:16px}
@@ -286,14 +284,7 @@ function render(scroll){
  let now='';
  if(cur>=0){const h=H[cur],pd=Math.ceil((h.b-ref)/6e4);
   now=`<section class="now ${h.f.k}"><div class="t"><small>اکنون در ${c[0]} · ${tf.format(ref)}</small><h2>ساعت ${h.p}</h2><span class="tg">${h.f.t}</span><p>${h.f.s}</p><p><small>${h.f.n}</small></p><p><small>${fa(pd)} دقیقه تا پایان این ساعت</small></p></div>${figs(h.p)}</section>`;}
- const KN={g:'ساعات سعد',b:'ساعات نحس',m:'ساعات میانه'};
- const kindsHtml='<section class="kinds">'+['g','b','m'].map(k=>{
-  const segs=[];
-  H.forEach(h=>{if(h.f.k!==k)return;const l=segs[segs.length-1];
-   if(l&&l.end===h.i-1){l.end=h.i;l.b=h.b;l.ps.push(h.p);}else segs.push({end:h.i,a:h.a,b:h.b,ps:[h.p]});});
-  const tot=segs.reduce((n,s)=>n+s.ps.length,0);
-  return `<div class="kb ${k}"><h3>${KN[k]} <small>${fa(tot)} ساعت</small></h3><ul>${segs.map(s=>`<li><span class="rg">از <bdi dir="ltr">${T(s.a)}</bdi> تا <bdi dir="ltr">${T(s.b)}</bdi></span><span class="pn">${s.ps.join('، ')}</span></li>`).join('')}</ul></div>`;}).join('')+'</section>';
- html+=kindsHtml+now+`<section class="sumbox">${chipsFor(0,12,'ساعات روز','طلوع '+tf.format(r.r0)+' — غروب '+tf.format(r.s))}${chipsFor(12,24,'ساعات شب','تا طلوع بعدی '+tf.format(r.r1))}</section>`;
+ html+=now+`<section class="sumbox">${chipsFor(0,12,'ساعات روز','طلوع '+tf.format(r.r0)+' — غروب '+tf.format(r.s))}${chipsFor(12,24,'ساعات شب','تا طلوع بعدی '+tf.format(r.r1))}</section>`;
  let rows='';
  H.forEach(h=>{
   if(h.i===0)rows+=`<div class="sun"><span>ساعات روز</span><span>طلوع ${tf.format(r.r0)} — غروب ${tf.format(r.s)}</span></div>`;

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ساعات کواکب</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f9;--card:#fff;--ink:#2b2f36;--mut:#6f7a88;--line:#e3e6ec;--day:#fff8e8;--night:#edf2fa;--brand:#3498db;--teal:#0f6e5f;--gold:#cfa54a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13161c;--card:#1c212b;--ink:#e6e9ef;--mut:#9aa5b5;--line:#2c3340;--day:#2a2618;--night:#1a2233}}
+:root[data-theme="dark"]{--bg:#13161c;--card:#1c212b;--ink:#e6e9ef;--mut:#9aa5b5;--line:#2c3340;--day:#2a2618;--night:#1a2233}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif}
+header{background:var(--brand);color:#fff;padding:16px 14px;text-align:center}
+header h1{margin:0;font-size:17px}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.ctl select,.ctl input,.ctl button{font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;border:1px solid #ffffff66;background:#ffffff26;color:#fff;min-width:120px}
+.ctl select option{color:#222}
+.ctl button{cursor:pointer;min-width:0}
+main{max-width:820px;margin:0 auto;padding:16px 12px 28px}
+.now{background:linear-gradient(160deg,#0f6e5f,#0a4a3e);border:1px solid var(--gold);border-radius:16px;color:#fbf3dd;padding:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.now .t{flex:1;min-width:200px}
+.now h2{margin:0 0 4px;font-size:26px;color:#f1d38a}
+.now p{margin:4px 0;font-size:13.5px;line-height:1.9}
+.now small{opacity:.8}
+.figs{display:flex;gap:12px}
+.fig{text-align:center;font-size:11px}
+.fig svg{display:block;margin:0 auto 2px}
+.sun{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut);margin:14px 4px 6px}
+.row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;margin-bottom:6px;border:1px solid var(--line)}
+.row.d{background:var(--day)}.row.n{background:var(--night)}
+.row.cur{outline:2px solid var(--teal);border-color:var(--teal)}
+.row .tm{min-width:128px;font-size:13px;direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+.row .tm i{font-style:normal;color:var(--mut);font-size:11px}
+.row .pl{flex:1}
+.row b{font-size:15px}
+.row .ds{font-size:12px;color:var(--mut);line-height:1.7}
+.row .figs{gap:6px}
+.row .fig{font-size:10px}
+.msg{padding:24px;text-align:center;color:var(--mut)}
+.note{font-size:11.5px;color:var(--mut);margin-top:14px;line-height:1.9}
+svg circle{fill:var(--gold)}
+.row svg circle{fill:var(--teal)}
+header{padding:22px 14px 18px;background:radial-gradient(1.3px 1.3px at 12% 30%,#fff9 98%,transparent),radial-gradient(1px 1px at 68% 20%,#fff8 98%,transparent),radial-gradient(1.5px 1.5px at 88% 65%,#fff9 98%,transparent),radial-gradient(1px 1px at 35% 75%,#fff7 98%,transparent),linear-gradient(160deg,#16264a,#2a5d9f 70%,#3498db)}
+header h1{font-size:25px}
+.ctl select,.ctl input,.ctl button{background:#ffffff1f;border-color:#ffffff4d}
+.gl,.now .glyph{display:grid;place-items:center;color:#fff;background:var(--pc);flex:none;font-family:'Segoe UI Symbol','Noto Sans Symbols','Noto Sans Symbols 2','DejaVu Sans',sans-serif;line-height:1}
+.gl{width:40px;height:40px;border-radius:50%;font-size:24px;box-shadow:inset 0 -3px 6px #0003}
+.row{border-inline-start:5px solid var(--pc)}
+.row.cur{background:linear-gradient(120deg,#0a4a3e,#0f6e5f);color:#fff;border:2px solid var(--pc);border-inline-start-width:8px;transform:scale(1.025);box-shadow:0 0 0 4px color-mix(in srgb,var(--pc) 35%,transparent),0 10px 26px #0005;animation:pulse 2.6s ease-in-out infinite;position:relative;z-index:1}
+.row.cur .ds,.row.cur .tm i,.row.cur .fig{color:#d4ece6}
+.row.cur svg circle{fill:#f1d38a}
+.row.cur .gl{box-shadow:0 0 0 3px #fff7}
+.badge{background:#fff;color:#0a4a3e;font-size:11px;font-weight:700;border-radius:20px;padding:2px 10px;margin-inline-start:8px}
+@keyframes pulse{50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--pc) 15%,transparent),0 10px 26px #0005}}
+@media (prefers-reduced-motion:reduce){.row.cur{animation:none}}
+.now{padding:22px;background:radial-gradient(1.3px 1.3px at 10% 25%,#fff8 98%,transparent),radial-gradient(1px 1px at 55% 12%,#fff7 98%,transparent),radial-gradient(1.5px 1.5px at 92% 75%,#fff8 98%,transparent),linear-gradient(160deg,#0f6e5f,#0a3f35);box-shadow:0 10px 30px #0f6e5f55}
+.now .glyph{width:92px;height:92px;border-radius:50%;font-size:58px;border:3px solid var(--gold);box-shadow:0 0 0 6px #cfa54a33,0 0 28px var(--pc)}
+.now h2{font-size:32px}
+.bar{height:7px;border-radius:7px;background:#ffffff30;margin-top:12px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--gold);border-radius:7px}
+.sun{font-weight:700}
+.chips{display:inline-flex;gap:5px;flex-wrap:wrap;vertical-align:middle;margin-inline-start:8px}
+.chip{font-size:12.5px;font-weight:700;padding:2px 12px;border-radius:20px;color:#fff;line-height:1.7}
+.chip.g{background:#1f9d63}.chip.b{background:#d64541}.chip.m{background:#6f7a88}.chip.c{background:#7a6bd6}
+.chip.big.g{background:#0b6b41;box-shadow:inset 0 0 0 2px #8be6b5}
+.chip.big.b{background:#8f1f1f;box-shadow:inset 0 0 0 2px #ff9d96}
+.chip.sml.b{background:#e07b2a}
+.chip.turn{background:#f2b705;color:#3a2a00;box-shadow:none}
+.row b{font-size:17px}
+.row .ds{display:block;margin-top:5px;font-size:13.5px;line-height:1.9;color:var(--ink)}
+.row.cur .ds{color:#fff}
+.now .nd{font-size:15.5px;font-weight:700;color:#fff;margin-top:8px}
+.now small{opacity:1;color:#cfe9e2;font-size:13px}
+.row .tm{padding:5px 10px;border-radius:10px;text-align:center;font-weight:700;font-size:14px;border:1px solid transparent}
+.row.d .tm{background:color-mix(in srgb,#f2b705 38%,var(--card));border-color:color-mix(in srgb,#e0a100 70%,transparent)}
+.row.n .tm{background:color-mix(in srgb,#5b7bd6 32%,var(--card));border-color:color-mix(in srgb,#4a63b8 70%,transparent)}
+.row.cur .tm{background:#ffffff26;border-color:#ffffff66;color:#fff}
+.row .tm i{color:#d9382e;font-weight:700}
+.row.cur .tm i{color:#ffd1cc}
+.sun span:first-child{padding:4px 16px;border-radius:20px;font-size:14px;font-weight:700}
+.sun:has(+.row.d) span:first-child{background:#f2b705;color:#3a2a00}
+.sun:has(+.row.n) span:first-child{background:#4a63b8;color:#fff}
+.sun span:last-child{color:var(--ink);font-weight:400;font-size:13px;align-self:center}
+@media (max-width:520px){.row{flex-wrap:wrap}.row .tm{min-width:100%}}
+</style>
+</head>
+<body>
+<header><h1>ساعات کواکب</h1>
+<div class="ctl"><select id="co" aria-label="کشور"></select><select id="ci" aria-label="شهر"></select><input type="date" id="dt" aria-label="تاریخ"><button id="td">اکنون</button></div></header>
+<main id="out"></main>
+<script id="core">
+const D=Math.PI/180;
+function sunEvents(y,m,d,lat,lon){
+ const jd=Date.UTC(y,m,d,12)/864e5+2440587.5,T=(jd-2451545)/36525;
+ const L0=(280.46646+T*(36000.76983+T*0.0003032))%360,M=357.52911+T*(35999.05029-0.0001537*T),e=0.016708634-T*(0.000042037+1.267e-7*T),Mr=M*D;
+ const C=Math.sin(Mr)*(1.914602-T*(0.004817+0.000014*T))+Math.sin(2*Mr)*(0.019993-0.000101*T)+Math.sin(3*Mr)*0.000289;
+ const om=125.04-1934.136*T,lam=L0+C-0.00569-0.00478*Math.sin(om*D);
+ const eps=23+(26+(21.448-T*(46.815+T*(0.00059-T*0.001813)))/60)/60+0.00256*Math.cos(om*D);
+ const dec=Math.asin(Math.sin(eps*D)*Math.sin(lam*D)),y2=Math.tan(eps*D/2)**2,L=L0*D;
+ const eq=4*(y2*Math.sin(2*L)-2*e*Math.sin(Mr)+4*e*y2*Math.sin(Mr)*Math.cos(2*L)-0.5*y2*y2*Math.sin(4*L)-1.25*e*e*Math.sin(2*Mr))/D;
+ const ch=(Math.cos(90.833*D)-Math.sin(lat*D)*Math.sin(dec))/(Math.cos(lat*D)*Math.cos(dec));
+ if(Math.abs(ch)>1)return null;
+ const H=Math.acos(ch)/D,noon=720-4*lon-eq,b=Date.UTC(y,m,d);
+ return [b+(noon-4*H)*6e4,b+(noon+4*H)*6e4];
+}
+const CH=['زحل','مشتری','مریخ','خورشید','زهره','عطارد','ماه'];
+const GL={'خورشید':'\u2609\uFE0E','ماه':'\u263D\uFE0E','مریخ':'\u2642\uFE0E','عطارد':'\u263F\uFE0E','مشتری':'\u2643\uFE0E','زهره':'\u2640\uFE0E','زحل':'\u2644\uFE0E'};
+const GC={'خورشید':'#e0a100','ماه':'#7f93b2','مریخ':'#d64541','عطارد':'#8a6fd1','مشتری':'#2e86c1','زهره':'#d8629b','زحل':'#6b6558'};
+const chips=p=>{const q=INFO[p][0],k={'س':'g','ن':'b','م':'m'}[q[0]]||'c',ws=k==='c'?[q]:q.split(' ');return '<span class="chips">'+ws.map((w,i)=>`<span class="chip ${i?{'اکبر':'big','اصغر':'sml','منقلب':'turn'}[w]+' ':''}${k}">${w}</span>`).join('')+'</span>'};
+const LORD=['خورشید','ماه','مریخ','عطارد','مشتری','زهره','زحل'];
+const INFO={
+'خورشید':['سعد اکبر','محبت - درخواست از حاکمان - درخواست حاجت'],
+'زهره':['سعد منقلب','محبت - درخواست از حاکمان - درخواست حاجت'],
+'عطارد':['میانه','برای هیچ کار نیک شایسته نیست'],
+'ماه':['تابع شرایط','از انجام امور مهم صرفه‌نظر شود'],
+'زحل':['نحس اکبر','برای نفرت، طلاق، جدایی و تفرقه'],
+'مشتری':['سعد اکبر منقلب','برای هر کار خوبی مناسب است'],
+'مریخ':['نحس اصغر','برای تفرقه و دشمنی و چیزهای پست']};
+const FIG={'خورشید':[['نصره الخارج','1122'],['قبض الداخل','2121']],'ماه':[['بیاض','2212'],['طریق','1111']],'مریخ':[['حمره','2122'],['نقی الخد','1211']],'عطارد':[['اجتماع','2112'],['جماعت','2222']],'مشتری':[['لحیان','1222'],['نصره الداخل','2211']],'زهره':[['فرح','1121'],['عتبه الداخل','2111']],'زحل':[['انکیس','2221'],['عقله','1221']]};
+const CT={
+'ایران':[['تهران',35.6892,51.389,'Asia/Tehran'],['مشهد',36.2605,59.6168,'Asia/Tehran'],['اصفهان',32.6546,51.668,'Asia/Tehran'],['شیراز',29.5918,52.5837,'Asia/Tehran'],['تبریز',38.0962,46.2738,'Asia/Tehran'],['اهواز',31.3183,48.6706,'Asia/Tehran']],
+'افغانستان':[['کابل',34.5553,69.2075,'Asia/Kabul'],['هرات',34.3529,62.204,'Asia/Kabul'],['مزار شریف',36.7069,67.11,'Asia/Kabul'],['قندهار',31.6289,65.7372,'Asia/Kabul']],
+'تاجیکستان':[['دوشنبه',38.5598,68.787,'Asia/Dushanbe'],['خجند',40.2826,69.622,'Asia/Dushanbe']],
+'پاکستان':[['اسلام‌آباد',33.6844,73.0479,'Asia/Karachi'],['کراچی',24.8607,67.0011,'Asia/Karachi'],['لاهور',31.5204,74.3587,'Asia/Karachi']],
+'ترکیه':[['آنکارا',39.9334,32.8597,'Europe/Istanbul'],['استانبول',41.0082,28.9784,'Europe/Istanbul'],['ازمیر',38.4237,27.1428,'Europe/Istanbul']],
+'آلمان':[['برلین',52.52,13.405,'Europe/Berlin'],['مونیخ',48.1351,11.582,'Europe/Berlin'],['هامبورگ',53.5511,9.9937,'Europe/Berlin'],['فرانکفورت',50.1109,8.6821,'Europe/Berlin']],
+'استرالیا':[['سیدنی',-33.8688,151.2093,'Australia/Sydney'],['ملبورن',-37.8136,144.9631,'Australia/Melbourne'],['بریزبن',-27.4698,153.0251,'Australia/Brisbane'],['پرت',-31.9505,115.8605,'Australia/Perth']],
+'هند':[['دهلی نو',28.6139,77.209,'Asia/Kolkata'],['مومبای',19.076,72.8777,'Asia/Kolkata'],['کلکته',22.5726,88.3639,'Asia/Kolkata'],['بنگلور',12.9716,77.5946,'Asia/Kolkata']],
+'روسیه':[['مسکو',55.7558,37.6173,'Europe/Moscow'],['سن‌پترزبورگ',59.9343,30.3351,'Europe/Moscow'],['یکاترینبورگ',56.8389,60.6057,'Asia/Yekaterinburg'],['نووسیبیرسک',55.0084,82.9357,'Asia/Novosibirsk'],['ولادی‌وستوک',43.1155,131.8855,'Asia/Vladivostok']]};
+function compute(ref,lat,lon){
+ const R=[],S=[];
+ for(let o=-2;o<=2;o++){const t=new Date(ref+o*864e5),ev=sunEvents(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate(),lat,lon);if(!ev)return null;R.push(ev[0]);S.push(ev[1]);}
+ R.sort((a,b)=>a-b);S.sort((a,b)=>a-b);
+ const r0=R.filter(x=>x<=ref).pop(),r1=R.find(x=>x>ref),s=S.find(x=>x>r0);
+ return {r0,r1,s};
+}
+</script>
+<script>
+const $=id=>document.getElementById(id),co=$('co'),ci=$('ci'),dt=$('dt'),out=$('out');
+Object.keys(CT).forEach(k=>co.add(new Option(k,k)));
+function fillCities(){ci.innerHTML='';CT[co.value].forEach((c,i)=>ci.add(new Option(c[0],i)));}
+fillCities();
+const fig=(c,n)=>{let s='<div class="fig"><svg width="28" height="36" viewBox="0 0 28 36">';
+ [...c].forEach((v,i)=>{s+=v==='1'?`<circle cx="14" cy="${5+i*9}" r="3.2"/>`:`<circle cx="8" cy="${5+i*9}" r="3.2"/><circle cx="20" cy="${5+i*9}" r="3.2"/>`});
+ return s+`</svg>${n}</div>`};
+const figs=p=>'<div class="figs">'+FIG[p].map(f=>fig(f[1],f[0])).join('')+'</div>';
+function render(){
+ const c=CT[co.value][ci.value],tz=c[3],lat=c[1],lon=c[2];
+ const tf=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:tz});
+ const wf=new Intl.DateTimeFormat('fa',{weekday:'long',timeZone:tz}),kf=new Intl.DateTimeFormat('en-CA',{timeZone:tz});
+ const wk=new Intl.DateTimeFormat('en-US',{weekday:'short',timeZone:tz});
+ let ref=Date.now();
+ if(dt.value){const[y,m,d]=dt.value.split('-').map(Number);ref=Date.UTC(y,m-1,d,12)-lon/15*36e5;}
+ const r=compute(ref,lat,lon);
+ if(!r){out.innerHTML='<div class="msg">در این تاریخ و مکان طلوع و غروب مشخصی وجود ندارد.</div>';return;}
+ const dl=(r.s-r.r0)/12,nl=(r.r1-r.s)/12,wi=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(wk.format(r.r0));
+ const st=CH.indexOf(LORD[wi]),base=kf.format(r.r0);
+ const T=x=>tf.format(x)+(kf.format(x)!==base?` <i>(${wf.format(x)})</i>`:'');
+ let rows='',cur=-1;
+ for(let i=0;i<24;i++){
+  const a=i<12?r.r0+i*dl:r.s+(i-12)*nl,b=i<12?r.r0+(i+1)*dl:r.s+(i-11)*nl,p=CH[(st+i)%7];
+  const on=!dt.value&&ref>=a&&ref<b;if(on)cur=i;
+  if(i===0)rows+=`<div class="sun"><span>☀︎ ساعات روز</span><span>طلوع ${tf.format(r.r0)} — غروب ${tf.format(r.s)}</span></div>`;
+  if(i===12)rows+=`<div class="sun"><span>☾︎ ساعات شب</span><span>طلوع بعدی ${T(r.r1)}</span></div>`;
+  rows+=`<div class="row ${i<12?'d':'n'}${on?' cur':''}" style="--pc:${GC[p]}"><div class="tm">${T(a)} - ${T(b)}</div><div class="gl">${GL[p]}</div><div class="pl"><b>${p}</b>${on?'<span class="badge">اکنون</span>':''} ${chips(p)}<span class="ds">${INFO[p][1]}</span></div>${figs(p)}</div>`;
+ }
+ let now='';
+ if(cur>=0){const a=cur<12?r.r0+cur*dl:r.s+(cur-12)*nl,b=cur<12?a+dl:a+nl,p=CH[(st+cur)%7],pd=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{dateStyle:'full',timeZone:tz}).format(ref);
+  now=`<section class="now" style="--pc:${GC[p]}"><div class="glyph">${GL[p]}</div><div class="t"><small>اکنون در ${c[0]} · ${tf.format(ref)}</small><h2>ساعت ${p}</h2><p>${chips(p)}</p><p class="nd">${INFO[p][1]}</p><p><small>${pd} · تا پایان این ساعت ${Math.ceil((b-ref)/6e4)} دقیقه</small></p><div class="bar"><span style="width:${Math.round((ref-a)/(b-a)*100)}%"></span></div></div>${figs(p)}</section>`;}
+ out.innerHTML=now+rows+'<p class="note">ساعات روز و شب هر کدام به ۱۲ قسمت مساوی تقسیم شده‌اند، پس طول ساعت‌ها ثابت نیست. روز کوکبی از طلوع آغاز می‌شود و اولین ساعت آن به کوکب همان روز هفته تعلق دارد. نسبت شکل‌ها به کواکب بر پایه‌ی جدول نیت‌رمل است؛ راس و ذنب جزو کواکب هفت‌گانه‌ی ساعات نیستند. زمان طلوع و غروب محاسبه‌ای است و ممکن است یکی دو دقیقه با تقویم‌های دیگر تفاوت داشته باشد.</p>';
+}
+co.onchange=()=>{fillCities();render()};ci.onchange=render;dt.onchange=render;
+$('td').onclick=()=>{dt.value='';render()};
+render();setInterval(()=>{if(!dt.value)render()},30000);
+</script>
+</body>
+</html>

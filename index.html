@@ -16,7 +16,7 @@
 </head>
 <body>
 <header><h1>ساعات کواکب</h1>
-<div class="ctl"><select id="co" aria-label="کشور"></select><select id="ci" aria-label="شهر"></select><select id="lu" aria-label="تنظیم تاریخ قمری"><option value="0">قمری: ام‌القری</option><option value="-1">قمری: یک روز عقب‌تر</option><option value="1">قمری: یک روز جلوتر</option></select><button id="ins" hidden>نصب برنامه</button></div></header>
+<div class="ctl"><select id="co" aria-label="کشور"></select><select id="ci" aria-label="شهر"></select><button id="ins" hidden>نصب برنامه</button></div></header>
 <main id="out"></main>
 <footer>© 2026 طراحی توسط RAQIYOUN. تمامی حقوق محفوظ است. محمود خاوری</footer>
 <script id="core">
@@ -118,12 +118,11 @@ const EV=[
 [[7,'شهادت امام باقر (ع) (سال ۱۱۴ قمری)'],[10,'عید قربان'],[15,'ولادت امام هادی (ع) (سال ۲۱۲ قمری)'],[18,'عید غدیر (سال ۱۰ قمری)']]];
 </script>
 <script>
-const $=id=>document.getElementById(id),co=$('co'),ci=$('ci'),lu=$('lu'),out=$('out');
+const $=id=>document.getElementById(id),co=$('co'),ci=$('ci'),out=$('out');
 const fa=n=>n.toLocaleString('fa-IR');
 let mevOpen=false;
 out.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('mev'))mevOpen=e.target.open},true);
-let adj=0;try{adj=+localStorage.getItem('adj')||0}catch(e){}
-lu.value=String(adj);
+const adj=0;
 Object.keys(CT).forEach(k=>co.add(new Option(k,k)));
 function fillCities(){ci.innerHTML='';CT[co.value].forEach((c,i)=>ci.add(new Option(c[0],i)));}
 fillCities();
@@ -194,11 +193,10 @@ function render(){
   if(h.i===12)rows+=`<div class="sun"><span>ساعات شب</span><span>طلوع بعدی ${T(r.r1)}</span></div>`;
   rows+=`<div class="row ${h.f.k}${h.on?' cur':''}" id="h${h.i}"><div class="tm">${T(h.a)} - ${T(h.b)}</div><div class="pl"><div class="hd"><b>${h.p}</b><span class="tag">${h.f.t}</span></div><div class="ds">${h.f.s}</div><div class="nt">${h.f.n}</div></div>${figs(h.p)}</div>`;
  });
- out.innerHTML=html+rows+'<p class="note">ساعات روز و شب هر کدام به ۱۲ قسمت مساوی تقسیم شده‌اند، پس طول ساعت‌ها ثابت نیست. روز کوکبی از طلوع آغاز می‌شود و اولین ساعت آن به کوکب همان روز هفته تعلق دارد. نسبت شکل‌ها به کواکب بر پایه‌ی جدول نیت‌رمل است؛ راس و ذنب جزو کواکب هفت‌گانه‌ی ساعات نیستند. تاریخ قمری بر پایه‌ی تقویم ام‌القری محاسبه می‌شود و ممکن است با رؤیت هلال در ایران یک روز تفاوت داشته باشد؛ در این صورت از منوی بالای صفحه آن را یک روز جابه‌جا کنید. زمان طلوع و غروب محاسبه‌ای است و ممکن است یکی دو دقیقه با تقویم‌های دیگر تفاوت داشته باشد.</p>';
+ out.innerHTML=html+rows+'<p class="note">ساعات روز و شب هر کدام به ۱۲ قسمت مساوی تقسیم شده‌اند، پس طول ساعت‌ها ثابت نیست. روز کوکبی از طلوع آغاز می‌شود و اولین ساعت آن به کوکب همان روز هفته تعلق دارد. نسبت شکل‌ها به کواکب بر پایه‌ی جدول نیت‌رمل است؛ راس و ذنب جزو کواکب هفت‌گانه‌ی ساعات نیستند. تاریخ قمری بر پایه‌ی تقویم ام‌القری محاسبه می‌شود و ممکن است با رؤیت هلال در ایران یک روز تفاوت داشته باشد. زمان طلوع و غروب محاسبه‌ای است و ممکن است یکی دو دقیقه با تقویم‌های دیگر تفاوت داشته باشد.</p>';
 }
 out.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const el=$('h'+b.dataset.i);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});});
 co.onchange=()=>{fillCities();render()};ci.onchange=render;
-lu.onchange=()=>{adj=+lu.value;try{localStorage.setItem('adj',String(adj))}catch(e){}render()};
 render();setInterval(render,30000);
 </script>
 <script id="app">
